@@ -34,12 +34,27 @@ export interface Transaction {
   category: string;
 }
 
+export interface CheckItem {
+  id: string;
+  text: string;
+  done: boolean;
+}
+
 export interface Note {
   id: string;
   content: string;
   category: string; // AI generated
   action: string; // AI generated
   createdAt: string;
+  
+  // Extended Features
+  checklist?: CheckItem[];
+  pomodoro?: {
+    duration: number; // in seconds (default 25*60)
+    timeLeft: number;
+    isActive: boolean;
+  };
+  scheduledFor?: string; // ISO Date string
 }
 
 export interface UserXP {

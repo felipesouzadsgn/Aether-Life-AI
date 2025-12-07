@@ -20,7 +20,8 @@ const App: React.FC = () => {
       case 'calendar':
         return <TasksView />;
       case 'brain':
-        return <BrainView />;
+        // Passing onViewChange allows BrainView to navigate to other modules
+        return <BrainView onViewChange={setCurrentView} />;
       default:
         return <Dashboard />;
     }
