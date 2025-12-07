@@ -1,0 +1,7 @@
+{
+  "name": "Aether Life OS",
+  "description": "A futuristic, glass-morphic Personal Operating System for finance, schedule, and second brain management, powered by Gemini AI.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
