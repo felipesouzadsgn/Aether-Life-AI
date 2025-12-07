@@ -52,3 +52,35 @@ export const quickCaptureProcess = async (input: string): Promise<{ category: st
     return { category: 'General', suggestedAction: 'Save Note' };
   }
 }
+
+export const parseFinanceInput = async (input: string): Promise<{ title: string, amount: number, type: 'income' | 'expense', category: string }> => {
+  if (!ai) return { title: input, amount: 0, type: 'expense', category: 'General' };
+
+  try {
+    const prompt = `
+      Analyze this financial statement: "${input}".
+      Extract the following fields into JSON:
+      - title (short description)
+      - amount (number only)
+      - type ('income' or 'expense')
+      - category (e.g., Food, Transport, Work, Tech, Health, Entertainment)
+      
+      If amount is missing, set to 0. If unsure of type, guess based on context.
+    `;
+
+    const response = await ai.models.generateContent({
+      model: 'gemini-2.5-flash',
+      contents: prompt,
+      config: {
+        responseMimeType: "application/json"
+      }
+    });
+
+    const text = response.text;
+    if (!text) throw new Error("No response");
+    return JSON.parse(text);
+  } catch (e) {
+    console.error("AI Parse Error", e);
+    return { title: input, amount: 0, type: 'expense', category: 'General' };
+  }
+}

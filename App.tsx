@@ -1,6 +1,10 @@
+
 import React, { useState } from 'react';
 import Layout from './components/Layout';
 import Dashboard from './components/Dashboard';
+import TasksView from './components/TasksView';
+import FinanceView from './components/FinanceView';
+import BrainView from './components/BrainView';
 import { ViewState } from './types';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -12,23 +16,11 @@ const App: React.FC = () => {
       case 'dashboard':
         return <Dashboard />;
       case 'finance':
-        return (
-          <div className="flex items-center justify-center h-[80vh] text-zinc-600 font-light tracking-widest uppercase">
-            Finance Module Loading...
-          </div>
-        );
+        return <FinanceView />;
       case 'calendar':
-        return (
-          <div className="flex items-center justify-center h-[80vh] text-zinc-600 font-light tracking-widest uppercase">
-            Temporal Engine Loading...
-          </div>
-        );
+        return <TasksView />;
       case 'brain':
-        return (
-          <div className="flex items-center justify-center h-[80vh] text-zinc-600 font-light tracking-widest uppercase">
-            Neural Interface Loading...
-          </div>
-        );
+        return <BrainView />;
       default:
         return <Dashboard />;
     }
@@ -43,6 +35,7 @@ const App: React.FC = () => {
           animate={{ opacity: 1, filter: 'blur(0px)' }}
           exit={{ opacity: 0, filter: 'blur(10px)' }}
           transition={{ duration: 0.3 }}
+          className="h-full"
         >
           {renderView()}
         </motion.div>
